@@ -175,37 +175,6 @@ void assertFalse_b(bool b, const char *msg)
     }
 }
 
-void assertSegFault_x(void (^funcBlock)(void), const char *msg)
-{
-    pid_t pid;
-
-    if ((pid = fork()) < 0)
-    {
-        perror("error forking");
-        exit(1);
-    }
-    else if (pid == 0) // child
-    {
-        funcBlock(); // should raise sigsegv (how to guarentee?)
-        exit(1);
-    }
-    else // parent
-    {
-        int res;
-        waitpid(pid, &res, 0);
-        if (WIFEXITED(res) || (WIFSIGNALED(res) && WTERMSIG(res) != SIGSEGV))
-        {
-            test_result_t *result = (test_result_t *)malloc(sizeof(*result) + 2 * sizeof(void *));
-            result->assertType = "assertSegFault_x";
-            result->type.s = 'sf';
-            result->dataType = 'x';
-            result->data[0] = malloc(1);
-            result->msg = msg;
-            pthread_exit(result);
-        }
-    }
-}
-
 typedef void *(voidPtr__voidPtr__func)(void *);
 typedef void(void__voidPtr__func)(void *);
 

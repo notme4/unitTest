@@ -46,7 +46,5 @@ void assertLessEqual_p(void *p1, void *p2, const char *msg);
 void assertTrue_b(bool b, const char *msg);
 void assertFalse_b(bool b, const char *msg);
 
-void assertSegFault_x(void (^funcBlock)(void), const char *msg);
-
 test_result_t **runTests(test_t *tests, size_t numTests, void *(*before_each)(void *be_args), void *be_args, void (*after_each)(void *be_ret));
 void printTests(test_result_t **results, size_t numTests);
