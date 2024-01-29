@@ -31,7 +31,6 @@ struct test_result_t
     const char *assertType;
     const char *msg;
     void *data[];
-    // char *info; // message if failed
 };
 
 #define ASSERTION(NAME, COMP, TYPE, DTYPE)                                                         \
