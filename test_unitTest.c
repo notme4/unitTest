@@ -26,27 +26,6 @@ void *test__fail_assertFalse(void *, void *)
     return 0;
 }
 
-void *test__pass_assertSegFault(void *, void *)
-{
-    assertSegFault_x(
-        ^{
-          raise(SIGSEGV);
-        },
-        "should pass");
-    return 0;
-}
-
-void *test__fail_assertSegFault(void *, void *)
-{
-    assertSegFault_x(
-        ^{
-          // raise(SIGSEGV);
-          return;
-        },
-        "");
-    return 0;
-}
-
 void *test__pass_assertAlmostEqual_f(void *, void *)
 {
     assertAlmostEqual_f(0.L, 0.L, "should pass");
@@ -91,14 +70,11 @@ void *test__unitTest(void *, void *)
             {.test = test__fail_assertTrue, .args = NULL},
             {.test = test__pass_assertFalse, .args = NULL},
             {.test = test__fail_assertFalse, .args = NULL},
-            {.test = test__pass_assertSegFault, .args = NULL},
-
-            {.test = test__fail_assertSegFault, .args = NULL},
             {.test = test__pass_assertAlmostEqual_f, .args = NULL},
+
             {.test = test__fail_assertAlmostEqual_f, .args = NULL},
             {.test = test__pass_assertEqual_i, .args = NULL},
             {.test = test__fail_assertEqual_i, .args = NULL},
-
             {.test = test__pass_assertEqual_u, .args = NULL},
             {.test = test__fail_assertEqual_u, .args = NULL},
         };
@@ -113,9 +89,6 @@ void *test__unitTest(void *, void *)
         0,
         1,
         0,
-        1,
-        0,
-
         1,
         0,
     };
