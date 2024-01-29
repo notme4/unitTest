@@ -28,7 +28,6 @@ struct test_result_t
         char c[2];
     } type;
     char dataType;
-    char padding[5];
     const char *assertType;
     const char *msg;
     void *data[];
